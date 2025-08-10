@@ -1,12 +1,18 @@
 import json
 from flask import Flask, render_template
+from flask_frozen import Freezer
 from collections import defaultdict
 
-ALL_CATEGORIES = ["Robotics", "Electronics", "Music Theory", "Astrophysics"]
+# --- CONFIGURATION ---
+ALL_CATEGORIES = ["Robotics", "ECE Topics", "Music Theory", "Astrophysics"]
 
+# --- APP SETUP ---
 app = Flask(__name__)
 app.config["DEBUG"] = True
+app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True # Helps with some deployment environments
+freezer = Freezer(app) # This is the line that was missing from your GitHub version
 
+# --- HELPER FUNCTIONS ---
 def load_projects():
     try:
         with open('content/projects.json', 'r', encoding='utf-8') as f:
@@ -21,6 +27,7 @@ def load_posts():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
+# --- ROUTES ---
 @app.route('/')
 def index():
     all_posts = load_posts()
@@ -45,5 +52,7 @@ def blog():
 def notes():
     return render_template('notes.html')
 
+# --- MAIN ---
 if __name__ == '__main__':
-    app.run(port=8000)
+    # This is used by the build.py script to freeze the site
+    freezer.freeze()
