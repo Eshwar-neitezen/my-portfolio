@@ -54,5 +54,5 @@ def notes():
 
 # --- MAIN ---
 if __name__ == '__main__':
-    # This is used by the build.py script to freeze the site
-    freezer.freeze()
+   
+    app.run(debug=True, port=8000)
