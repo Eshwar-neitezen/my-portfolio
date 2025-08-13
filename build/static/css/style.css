@@ -517,7 +517,7 @@ body.light-mode .post-item-link:hover .post-item {
 .fade-in {
     opacity: 0;
     animation-name: fadeInUp;
-    animation-duration: 0.8s;
+    animation-duration: 1.5s;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
 }

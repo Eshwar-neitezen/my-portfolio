@@ -4,7 +4,7 @@ from flask_frozen import Freezer
 from collections import defaultdict
 
 # --- CONFIGURATION ---
-ALL_CATEGORIES = ["Robotics", "ECE Topics", "Music Theory", "Astrophysics"]
+ALL_CATEGORIES = ["Robotics", "Electronics", "Music Theory", "Astrophysics"]
 
 # --- APP SETUP ---
 app = Flask(__name__)
@@ -55,4 +55,4 @@ def notes():
 # --- MAIN ---
 if __name__ == '__main__':
    
-    app.run(debug=True, port=8000)
+    freezer.freeze()  # This line is necessary to generate the static files
