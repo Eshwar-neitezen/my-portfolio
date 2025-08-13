@@ -3,16 +3,16 @@ from flask import Flask, render_template
 from flask_frozen import Freezer
 from collections import defaultdict
 
-# --- CONFIGURATION ---
+
 ALL_CATEGORIES = ["Robotics", "Electronics", "Music Theory", "Astrophysics"]
 
-# --- APP SETUP ---
+
 app = Flask(__name__)
 app.config["DEBUG"] = True
-app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True # Helps with some deployment environments
-freezer = Freezer(app) # This is the line that was missing from your GitHub version
+app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True 
+freezer = Freezer(app) 
 
-# --- HELPER FUNCTIONS ---
+
 def load_projects():
     try:
         with open('content/projects.json', 'r', encoding='utf-8') as f:
@@ -27,7 +27,7 @@ def load_posts():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
-# --- ROUTES ---
+
 @app.route('/')
 def index():
     all_posts = load_posts()
@@ -48,11 +48,8 @@ def blog():
         grouped_posts[post['category']].append(post)
     return render_template('blog.html', all_categories=ALL_CATEGORIES, grouped_posts=grouped_posts)
 
-@app.route('/notes.html')
-def notes():
-    return render_template('notes.html')
 
-# --- MAIN ---
+
 if __name__ == '__main__':
    
-    freezer.freeze()  # This line is necessary to generate the static files
+ app.run(port = 8000, debug=True)
